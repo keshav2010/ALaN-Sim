@@ -30,6 +30,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.ColorUIResource;
 
+import alanse.executor.Executor;
+
 public class GlueDisplayWindowFrame extends JFrame implements ActionListener,DocumentListener {
 
 	/**
@@ -54,11 +56,17 @@ public class GlueDisplayWindowFrame extends JFrame implements ActionListener,Doc
 		memWindow=new MemoryWindow();
 		menu = new JMenuBar();
 		
+		//TODO : Registering Tables Object to Executor to enable executor to pass the result back to user via tables
+		// Registered memoryTable and register Table
+		Executor.registerTableObject(memWindow.getTableObject(),regWindow.getTableObject()); 
+		
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
 		setJMenuBar(menu);
+		
 		buildMenu();
+		
 		this.setBounds(new Rectangle(100,100,600,600));
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		

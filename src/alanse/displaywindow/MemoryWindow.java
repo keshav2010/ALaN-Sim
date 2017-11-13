@@ -24,8 +24,8 @@ public class MemoryWindow extends JPanel{
 	//ArrayList<MemoryCell> memoryList;
 	//JTable table;
 	
-	JScrollPane tableContainer; //Table must be enclosed in scrollPane to make sure Columnheader is visible
-	MemoryCellTable table;
+	JScrollPane tableContainer=null; //Table must be enclosed in scrollPane to make sure Columnheader is visible
+	MemoryCellTable table=null;
 	public MemoryWindow()
 	{
 		this.setBorder(new TitledBorder("Memory Address Table"));
@@ -36,5 +36,11 @@ public class MemoryWindow extends JPanel{
 		this.setBackground(Color.green);
 		this.setToolTipText("This Window Displays Variables stored in Memory");
 		
+	}
+	
+	public MemoryCellTable getTableObject() 
+	{
+	
+		return table;
 	}
 }

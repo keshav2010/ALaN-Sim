@@ -8,11 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
+import alanse.datatable.MemoryCellTable;
 import alanse.datatable.RegisterCellTable;
 import alanse.instructiondata.RegisterCell;
 
 //for displaying registers and related data
 public class RegisterWindow extends JPanel{
+
+	/**
+	 * 
+	 */
 
 	JScrollPane tableContainer;
 	RegisterCellTable table;
@@ -28,6 +33,10 @@ public class RegisterWindow extends JPanel{
 		this.setBackground(Color.green);
 		this.setToolTipText("This Window Displays Variables stored in Registers");
 		
+	}
+	public RegisterCellTable getTableObject() 
+	{
+		return table;
 	}
 	
 }

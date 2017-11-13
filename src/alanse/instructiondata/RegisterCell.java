@@ -24,5 +24,9 @@ public class RegisterCell
 	{
 		return value;
 	}
+	public void setValue(int val)
+	{
+		value=val;
+	}
 	
 }

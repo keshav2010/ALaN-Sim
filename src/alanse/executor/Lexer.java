@@ -1,23 +1,20 @@
 package alanse.executor;
 
 import java.util.ArrayList;
+//Tokenizer --> Lexer 
 
 /*
- * remarks : the code may not be perfect, i had some doubts regarding object-referencing in java 
- * i know it but still to be on safer side, often you might encounter code that seems to be useless, try not to 
- * change such pieces of code.
+ * remarks : the code is poorly written 
  */
 /*
  * Lexer Class Description : Accepts 1 word (token.getName()) and assigns a meaning to it and forms a List of Tokens with meaning
  * in the order they received. 
  * 
- * Lexer(Token) : Construtor requires a token variable,
+ * Lexer(Token) : Constructor requires a token variable,
  * finalizeList() : returns a list containing words (marked as UNKNOWN)
  * identifyToken(Token) *PRIVATE 
  */
 public class Lexer {
-	//private	static TokenList tokenlist;
-	//public static ArrayList<Token> tokenList=null;
 	public static ArrayList<Token> tokenList=null;
 	private static ArrayList<Token> copy=null;
 	/*
@@ -44,15 +41,17 @@ public class Lexer {
 			copy.clear();
 			copy=null;
 		}
-		token = new Token(identifyToken(token));
+		token.setType( identifyToken(token) );//assign meaning to token
 		
 		if(tokenList==null)
 			tokenList=new ArrayList<Token>();
 		
-		tokenList.add(token);
+		tokenList.add(token);//add it to token list
 		
 	}
-	
+	/*
+	 * finalizeList() method is called by Tokenizer for each instruction
+	 */
 	public static /*ArrayList<Token>*/void finalizeList() 
 	{
 		copy=new ArrayList<Token>(tokenList);
@@ -76,7 +75,7 @@ public class Lexer {
 		//return copy;
 		// Lexer should now pass this TokenList (copy) to SyntaxAnalyzer
 	}
-	private static Token identifyToken(Token t)
+	private static int identifyToken(Token t)
 	{
 		//first switch statement checks of token is either opCode, Register or Memory address identifier
 		switch(t.getName().toUpperCase().trim())
@@ -96,8 +95,8 @@ public class Lexer {
 		case "MUL":
 		case "MOD":
 		case "DIV":
-			t.setType(Token.OPCODE);
-			return t;
+			return Token.OPCODE;
+			//t.setType(Token.OPCODE);
 			
 		//remark : R0 to R6 are general-purpose Registers
 		case "R0":
@@ -107,8 +106,7 @@ public class Lexer {
 		case "R4":
 		case "R5":
 		case "R6":
-			t.setType(Token.REGISTER);
-			return t;
+			return Token.REGISTER;
 		//remark "NAMES OF IDENTIFIERS ARE PRE-DEFINED AND NOW ALLOWED TO BE CUSTOM USER BASED AT THE MOMENT"
 		case "LOCA":
 		case "LOCB":
@@ -117,8 +115,8 @@ public class Lexer {
 		case "LOCE":
 		case "LOCF":
 		case "LOCG":
-			t.setType(Token.MEMORY);
-			return t;
+			return Token.MEMORY;
+			
 		default:break;
 		}
 		
@@ -134,14 +132,8 @@ public class Lexer {
 		}
 		if(isNumber)
 		{
-			t.setType(Token.NUMBER);
+			return Token.NUMBER;
 		}
-		
-		else //not NUMBER,OPCODE,REGISTER,MEMORY, mark as UNKNOWN and pass it to syntax checker to resolve the issue by generating error
-		{
-			t.setType(Token.UNKNOWN); //by default Token is marked as UNKNOWN, this statement is not required but just for sake 
-			//of being on safer side, do not remove this
-		}
-		return t;
+		return Token.UNKNOWN;
 	}
 }
